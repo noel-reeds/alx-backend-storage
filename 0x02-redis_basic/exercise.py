@@ -20,4 +20,8 @@ class Cache:
     
     def get(self, key: str, fn: Optional[Callable]) -> str:
         """simulates redis.Redis get method"""
-        pass
+        # check if key exists.
+        if key in self._redis.keys():
+            self._redis.get(key)
+        else:
+            return None
