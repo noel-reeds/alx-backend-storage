@@ -19,7 +19,7 @@ class Cache:
         return key
     
     def get(self, key: str, fn: Optional[Callable] = None):
-        """simulates redis.Redis get method"""
+        """simulates redis.Redis.get method"""
         value = self._redis.get(key)
         if fn and value:
             return fn(value)
