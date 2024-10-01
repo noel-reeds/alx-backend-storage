@@ -23,7 +23,7 @@ class Cache:
         value = self._redis.get(key)
         if fn and value:
             return fn(value)
-        elif value
+        elif value:
             return value
         else:
             return None
