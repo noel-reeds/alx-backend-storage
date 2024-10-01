@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-from collections.abc import Callable, Optional
+from typing import Callable, Optional
 import redis
 from typing import Union
 import uuid
@@ -8,7 +8,7 @@ import uuid
 class Cache:
     """class cache"""
     def __init__(self):
-        """instantiates a redis db and flushes"""
+        """instantiates a redis db and flushes db"""
         self._redis = redis.Redis()
         self._redis.flushdb()
 
@@ -20,11 +20,11 @@ class Cache:
     
     def get(self, key: str, fn: Optional[Callable] = None):
         """simulates redis.Redis get method"""
-        # check if key exists.
-        if key in self._redis.keys():
-            value = self._redis.get(key)
-            if fn:
-                return fn(value)
+        value = self._redis.get(key)
+        if fn and value:
+            return fn(value)
+        elif value
+            return value
         else:
             return None
 
