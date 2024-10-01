@@ -1,0 +1,7 @@
+redis-server
+redis-6.0.10.tar.gz
+redis-6.0.10/
+redis-cli
+*.py
+__pycache__/
+
