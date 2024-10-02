@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import functools
+from functools import wraps
 from typing import Callable, Optional
 import redis
 from typing import Union
@@ -8,7 +8,7 @@ import uuid
 
 def count_calls(store: Callable) -> Callable:
     """Decorator function to count the number of calls to `store`"""
-    @functools.wraps(store)
+    @wraps(store)
     def wrapper(self, *args, **kwargs):
         """docstring for wrapper"""
         res = store(self, *args, **kwargs)
