@@ -5,6 +5,7 @@ import redis
 from typing import Union
 import uuid
 
+
 def count_calls(store: Callable) -> Callable:
     """Decorator function to count the number of calls to `store`"""
     @functools.wraps(store)
@@ -29,7 +30,7 @@ class Cache:
         key = str(uuid.uuid4())
         self._redis.set(key, data)
         return key
-    
+
     def get(self, key: str, fn: Optional[Callable] = None):
         """simulates redis.Redis.get method"""
         value = self._redis.get(key)
