@@ -6,13 +6,15 @@ from typing import Union
 import uuid
 
 
-def count_calls(store: Callable) -> Callable:
+def count_calls(method: Callable) -> Callable:
     """Decorator function to count the number of calls to `store`"""
-    @wraps(store)
+    key = method.__qualname__
+
+    @wraps(method)
     def wrapper(self, *args, **kwargs):
         """docstring for wrapper"""
-        res = store(self, *args, **kwargs)
-        self._redis.incr(store.__qualname__, amount=1)
+        res = method(self, *args, **kwargs)
+        self._redis.incr(key, amount=1)
         return res
     return wrapper
 
