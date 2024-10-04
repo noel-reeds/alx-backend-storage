@@ -8,13 +8,13 @@ import uuid
 
 def count_calls(method: Callable) -> Callable:
     """Decorator function to count the number of calls to `store`"""
-    key = method.__qualname__
+    fn_name = method.__qualname__
 
     @wraps(method)
     def wrapper(self, *args, **kwargs):
         """docstring for wrapper"""
         res = method(self, *args, **kwargs)
-        self._redis.incr(key, amount=1)
+        self._redis.incr(fn_name, amount=1)
         return res
 
     return wrapper
@@ -30,13 +30,22 @@ def call_history(method: Callable) -> Callable:
     def wrapper(self, *args, **kwargs):
         """wrapper function"""
         res = method(self, *args, **kwargs)
-
-        self._redis.rpush(inputs, str(args))
-        self._redis.rpush(outputs, res)
-
+        try:
+            self._redis.rpush(inputs, str(args))
+            self._redis.rpush(outputs, res)
+        except Exception as e:
+            print('err: {e}')
         return res
-
     return wrapper
+
+
+def replay(method: Callable) -> str:
+    """Displays the history of a function"""
+    fn_name = method.__qualname__
+
+    redis = method.__self__._redis
+    calls = int(redis.get(fn_name))
+    print(f"{fn_name} was called {calls} times")
 
 
 class Cache:
