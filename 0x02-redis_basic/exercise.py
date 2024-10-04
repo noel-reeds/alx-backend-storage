@@ -42,10 +42,18 @@ def call_history(method: Callable) -> Callable:
 def replay(method: Callable) -> str:
     """Displays the history of a function"""
     fn_name = method.__qualname__
+    inputs = f"{fn_name}:inputs"
+    outputs = f"{fn_name}:outputs"
 
     redis = method.__self__._redis
     calls = int(redis.get(fn_name))
     print(f"{fn_name} was called {calls} times")
+    inputs = redis.lrange(inputs, 0, -1)
+    outputs = redis.lrange(outputs, 0, -1)
+    zipped = list(zip(inputs, outputs))
+    for tup in zipped:
+        valuein, valueout = tup
+        print(f"{fn_name}({valuein}) -> {valueout}")
 
 
 class Cache:
