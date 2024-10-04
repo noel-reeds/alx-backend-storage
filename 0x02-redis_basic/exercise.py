@@ -52,8 +52,10 @@ def replay(method: Callable) -> str:
     outputs = redis.lrange(outputs, 0, -1)
     zipped = list(zip(inputs, outputs))
     for tup in zipped:
-        valuein, valueout = tup
-        print(f"{fn_name}({valuein}) -> {valueout}")
+        args, res = tup
+        args = args.decode('utf-8')
+        res = res.decode('utf-8')
+        print(f"{fn_name}(*{args}) -> {res}")
 
 
 class Cache:
