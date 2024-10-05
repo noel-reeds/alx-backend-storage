@@ -49,7 +49,7 @@ def replay(method: Callable) -> None:
     calls = int(redis.get(fn_name))
     print(f"{fn_name} was called {calls} times")
     inputs = redis.lrange(inputs, 0, -1)
-    outputs = redis.lrange(outputs, 0, -1
+    outputs = redis.lrange(outputs, 0, -1)
     for args, output in zip(inputs, outputs):
         args = args.decode('utf-8')
         output = output.decode('utf-8')
