@@ -28,6 +28,6 @@ def get_page(url: str) -> str:
     res = requests.get(url)
 
     if res.status_code == 200:
-        return "OK"
+        return res.text
 
     return None
