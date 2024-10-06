@@ -25,10 +25,9 @@ def calls_counter(method: Callable) -> Callable:
 @calls_counter
 def get_page(url: str) -> str:
     """implementation of an expiring web cache and tracker"""
-    r = redis.Redis()
     res = requests.get(url)
 
     if res.status_code == 200:
-        return res.text
+        return "OK"
 
     return None
