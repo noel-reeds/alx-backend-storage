@@ -48,7 +48,7 @@ def replay(method: Callable) -> None:
 
     redis = method.__self__._redis
     calls = int(redis.get(fn_name))
-    print(f"{fn_name} was called {calls} times")
+    print(f"{fn_name} was called {calls} times:")
     inputs = redis.lrange(inputs, 0, -1)
     outputs = redis.lrange(outputs, 0, -1)
     for args, output in zip(inputs, outputs):
