@@ -20,6 +20,7 @@ def calls_counter(method: Callable) -> Callable:
         return res
     return wrapper
 
+
 @calls_counter
 def get_page(url: str) -> str:
     """implementation of an expiring web cache and tracker"""
