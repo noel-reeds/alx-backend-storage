@@ -8,12 +8,13 @@ from functools import wraps
 
 def calls_counter(method: Callable) -> Callable:
     """Returns number of times page is accessed"""
-    cache_name = f"count:{url}"
 
     @wraps(method)
     def wrapper(*args, **kwargs):
         """wrapper function"""
         res = method(*args)
+        url = args[0]
+        cache_name = f"count:{url}"
         r = redis.Redis()
         r.incr(cache_name, amount=1)
         r.expire(cache_name, 10)
@@ -27,4 +28,7 @@ def get_page(url: str) -> str:
     r = redis.Redis()
     res = requests.get(url)
 
-    return res.text
+    if res.status_code == 200:
+        return res.text
+
+    return None
