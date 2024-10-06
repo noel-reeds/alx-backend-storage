@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+"""Cache Module for Redis Basic"""
 from functools import wraps
 from typing import Callable, Optional
 import redis
