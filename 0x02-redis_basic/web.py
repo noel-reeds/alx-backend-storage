@@ -11,7 +11,6 @@ def get_page(url: str) -> str:
     res = requests.get(url)
     cache_name = f"count:{url}"
 
-    if res.status_code == 200:
-        r.incr(cache_name, amount=1)
-        r.expire(cache_name, 10)
-        return res.text
+    r.incr(cache_name, amount=1)
+    r.expire(cache_name, 10)
+    return res.text
