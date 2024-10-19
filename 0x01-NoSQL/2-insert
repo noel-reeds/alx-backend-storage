@@ -1,0 +1,2 @@
+// inserts a document into a mongod server
+db.my_db.insert({ 'name': 'Holberton school' })
