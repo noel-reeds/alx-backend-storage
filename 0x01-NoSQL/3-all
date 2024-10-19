@@ -1,0 +1,2 @@
+// lists all documents in a mongod server
+db.school.find()
