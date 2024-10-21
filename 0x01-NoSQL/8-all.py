@@ -4,4 +4,4 @@
 def list_all(mongo_collection):
     """Function def"""
     docs = mongo_collection.find()
-    return list(docs)
+    return docs
